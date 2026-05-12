@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Portfolio | Duy Nguyen Trong</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f8f9fa;
+            --tcb-red: #E31837; /* Techcombank Red */
+            --tcb-red-soft: rgba(227, 24, 55, 0.1);
+            --tcb-gradient: linear-gradient(135deg, #E31837 0%, #b3122b 100%);
+            --card-bg: #ffffff;
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-main: #1a1a1a;
+            --text-muted: #6c757d;
+            --sidebar-width: 290px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
+            padding: 30px 15px;
+            background: #111111;
+            border-right: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            padding-left: 10px;
+            color: #fff;
+        }
+
+        .tcb-logo-box { 
+            width: 35px; 
+            height: 22px; 
+            background: var(--tcb-red); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border-radius: 2px;
+        }
+
+        .nav-btn {
+            padding: 12px 18px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #a1a1aa;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .nav-btn.active { background: var(--tcb-gradient); color: #fff; }
+
+        /* Main Area */
+        .main {
+            flex-grow: 1;
+            padding: 40px 5%;
+            overflow-y: auto;
+        }
+
+        .header-flex { display: flex; align-items: center; margin-bottom: 30px; }
+        .big-id {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 6rem;
+            color: rgba(0, 0, 0, 0.05);
+            line-height: 0.8;
+            margin-right: 20px;
+        }
+
+        h1 { 
+            font-size: 3rem; 
+            font-weight: 800; 
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: #000;
+        }
+
+        /* Formatting Toolkit */
+        .hl-red {
+            background: linear-gradient(to top, var(--tcb-red-soft) 45%, transparent 45%);
+            display: inline;
+            padding: 0 2px;
+            font-weight: 700;
+            color: var(--tcb-red);
+        }
+
+        .data-chip {
+            display: inline-block;
+            background: var(--tcb-red-soft);
+            border: 1px solid rgba(227, 24, 55, 0.2);
+            padding: 1px 12px;
+            border-radius: 50px;
+            color: var(--tcb-red);
+            font-weight: 800;
+            margin: 0 3px;
+            font-size: 1.1rem;
+            vertical-align: middle;
+        }
+
+        .quote-block {
+            background: #fff;
+            border-left: 5px solid var(--tcb-red);
+            padding: 20px 30px;
+            margin: 25px 0;
+            border-radius: 0 15px 15px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .quote-block p {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--tcb-red);
+            line-height: 1.3;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .job-meta { 
+            color: var(--tcb-red); 
+            font-weight: 800; 
+            font-size: 1.25rem; 
+            margin-bottom: 15px; 
+            display: block; 
+        }
+
+        .domain-tag {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: block;
+            font-style: italic;
+        }
+
+        p { font-size: 1.25rem; line-height: 1.6; margin-bottom: 15px; color: #333; }
+        
+        ul { list-style: none; margin-top: 20px; }
+        li {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.5;
+            color: #333;
+        }
+        li::before {
+            content: "■";
+            position: absolute;
+            left: 10px;
+            color: var(--tcb-red);
+            font-size: 1rem;
+            top: 4px;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="tcb-logo-box"></div>
+            <span>DUYNT<br>EXECUTIVE PROFILE</span>
+        </div>
+        <nav class="nav-group">
+            <div class="nav-btn active" onclick="showTab(event, 'summary', '00')">ABOUT ME</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp1', '01')">BIM Group</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp2', '02')">VINGROUP</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp3', '03')">G-GROUP</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp4', '04')">FPT</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp5', '05')">Toss</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp6', '06')">Techcombank Ecosystem</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp7', '07')">Startup</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp8', '08')">MOET</div>
+            <div class="nav-btn" onclick="showTab(event, 'exp9', '09')">TOPICA</div>
+        </nav>
+    </aside>
+
+    <main class="main">
+        <div class="header-flex">
+            <div id="project-num" class="big-id">00</div>
+            <h1 id="tab-title">A STRATEGIC PLATFORM LEADER</h1>
+        </div>
+
+        <div id="summary" class="tab-content active">
+            <div class="card">
+                <span class="job-meta">NGUYEN TRONG DUY</span>
+                <p>Strategic leader with an <span class="hl-red">MBA from Germany</span> and over <span class="data-chip">10</span> years of experience in <span class="hl-red">Product Ownership, Digital Transformation, and Fintech</span>. Proven track record in leading <span class="hl-red">Agile squads</span> to deliver high-impact solutions, managing complex P&L (net revenue <span class="data-chip">~1 million USD</span> monthly), and negotiating strategic partnerships with Financial Institutions and Governmental bodies. Expert in designing <span class="hl-red">CVP-driven customer journeys</span> that maximize business efficiency and user engagement.</p>
+                
+                <span class="job-meta">EDUCATION</span>
+                <p>Master of Business Administration (MBA), Leipzig University, Germany (2013 – 2015)</p>
+                
+                <div class="quote-block">
+                    <p>Professional Philosophy: "Driving large-scale impact through technology and strategic partnerships to empower millions of users."</p>
+                </div>
+                <span class="job-meta">CONTACT</span>
+                <p>P: (+84) 902 14 0220 | E: duynt.ella@gmail.com | Linkedin: duynguyentrong</p>
+            </div>
+        </div>
+
+        <div id="exp1" class="tab-content">
+            <div class="card">
+                <span class="job-meta">BIM Group – Group Head of Digital Strategy</span>
+                <span class="domain-tag">Aug 2025 – Present | Domain: Multi-industry Conglomerate (Real Estate, Renewable Energy, Hospitality, Gym & Fitness)</span>
+                <p><em>About BIM Group: Top 10 Private Conglomerate in Vietnam, owning – cooperate and develop multiple brands such as BIM Land, Intercontinental – Halong & Phu Quoc, Regent Phu Quoc, Holiday Inn, Sailing Club, Halong Plaza, Fraser Suites, Elite Fitness, Flexpay..</em></p>
+                <ul>
+                    <li><strong>Strategic Roadmap:</strong> Spearheading the <span class="hl-red">group-wide digital transformation</span> strategy to integrate a unified ecosystem across diverse business sectors including BIM Land, Intercontinental, Regent, and Elite Fitness.</li>
+                    <li><strong>Project Execution & Leadership:</strong> Initiated and managed <span class="hl-red">AI, Digital Workplace & Digital Payment</span> projects for the entire Group. Leading the end-to-end delivery of <span class="hl-red">CRM/CDP and E-Contract</span> solutions.</li>
+                    <li><strong>Organizational Transformation:</strong> Built internal communication frameworks from scratch, training and transferring digital capabilities to <span class="data-chip">200+</span> Leaders and <span class="data-chip">1,000+</span> office staff across various sectors.</li>
+                    <li><strong>Partnership & Loyalty:</strong> Implementing integrated payment and loyalty solutions to enhance <span class="hl-red">customer lifetime value</span> and optimize the O2O journey.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp2" class="tab-content">
+            <div class="card">
+                <span class="job-meta">GreenFuture (GF) by VinGroup – Head of Platform Business</span>
+                <span class="domain-tag">Mar 2025 – June 2025 | Domain: Mobility & Technology</span>
+                <ul>
+                    <li><strong>Agile Product Launch:</strong> Defined customer segmentation and prioritized product backlogs to launch new mobility solutions (<span class="hl-red">GF-VIP, Luxury Chauffeur</span>) within <span class="data-chip">3 weeks</span>.</li>
+                    <li><strong>Rapid Scale:</strong> Scaled scale up from 0 to <span class="data-chip">300+</span> daily trips within 10 days of launching the Tan Son Nhat airport service; and <span class="data-chip">3x</span> higher within 30 days launching.</li>
+                    <li><strong>High-Value Partnerships:</strong> Managed premium contracts for <span class="hl-red">BIDV, Ministry of Foreign Affairs, and Vinfast</span>, delivering <span class="data-chip">300+</span> luxury vehicles for high-level events like Vesak 2025.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp3" class="tab-content">
+            <div class="card">
+                <span class="job-meta">Gpay (G-Group) – Chief Growth Officer (CGO)</span>
+                <span class="domain-tag">Mar 2024 – Feb 2025 | Domain: Fintech</span>
+                <ul>
+                    <li><strong>P&L Management:</strong> Responsible for Business, Marketing, and Product strategies, driving a <span class="data-chip">30%</span> MoM growth in Gross Profit for a platform with <span class="data-chip">$1.6 Billion</span> GMV.</li>
+                    <li><strong>Strategic Payment Solutions:</strong> Key business lead for <span class="hl-red">Gtelpay</span> (Payment Gateway for the Ministry of Public Security), serving nearly <span class="data-chip">1 million</span> transactions per month.</li>
+                    <li><strong>B2B Acquisition:</strong> Led cross-functional teams to acquire major business customers in <span class="hl-red">Finance, Insurance, and E-commerce</span> sectors.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp4" class="tab-content">
+            <div class="card">
+                <span class="job-meta">FPT – akaBot – Chief Marketing Officer (CMO) & Strategy Advisor</span>
+                <span class="domain-tag">Jun 2021 – Jun 2023 | Domain: RPA, Conversational AI, B2B SaaS</span>
+                <ul>
+                    <li><strong>Banking Vertical Dominance:</strong> Focused on dominating the financial industry, successfully supporting <span class="data-chip">18%</span> of all banks in Vietnam with <span class="hl-red">automation and AI solutions</span>.</li>
+                    <li><strong>Global Analyst Relations:</strong> Managed relationships with Gartner and Forrester, elevating akaBot to a <span class="data-chip">Top 20</span> Global RPA Vendor in 18 months.</li>
+                    <li><strong>10x Growth:</strong> Executed Go-to-Market (GTM) activities for the SaaS product (UBot.vn), achieving <span class="data-chip">10x</span> YoY customer growth across 15 countries.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp5" class="tab-content">
+            <div class="card">
+                <span class="job-meta">Toss – Strategic Business Development Manager</span>
+                <span class="domain-tag">Mar 2022 – Dec 2022 | Domain: Fintech</span>
+                <ul>
+                    <li><strong>Ecosystem Development:</strong> Led the expansion of the Toss app in Vietnam, managing growth & products including <span class="hl-red">Walk to Earn, Merchant Acquisition and Payments</span>.</li>
+                    <li><strong>Merchant Acquisition:</strong> Built and managed a sales team that acquired <span class="data-chip">1,000</span> merchants in just 60 days.</li>
+                    <li><strong>User Engagement:</strong> Leveraged strategic partnerships with Telcos and Securities companies to reach <span class="data-chip">3 million</span> Monthly Active Users (MAU).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp6" class="tab-content">
+            <div class="card">
+                <span class="job-meta">Techcombank Ecosystem (One Mount Group & Techcombank) – Strategic Product Owner</span>
+                <span class="domain-tag">2023 | Oct 2020 – Jun 2021 | Domain: Digital Banking & PropTech</span>
+                <ul>
+                    <li><strong>AI-Enabled Banking (PFM) – TechcomBank (2023):</strong> Partnered with global AI leader <span class="hl-red">Personetics</span> to build the first AI-enabled Personal Finance Management (PFM) tool in the Techcombank app.</li>
+                    <li><strong>Roadmap & Feature Design:</strong> Defined the product roadmap for features such as <span class="hl-red">spending categorization, customized financial offers, and auto-saving</span>.</li>
+                    <li><strong>PropTech O2O Journey – One Mount Group (2020 – 2021):</strong> Lead Product team and Build Products for Real Estate. Validate solutions such as <span class="hl-red">"Home for Home"</span> model, generating <span class="data-chip">4,000</span> leads and <span class="data-chip">20k</span> web traffic within 6 months.</li>
+                    <li><strong>Agile Collaboration:</strong> Worked closely with Technical teams, BAs, and Designers to ensure end-to-end delivery and high-quality program velocity.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp7" class="tab-content">
+            <div class="card">
+                <span class="job-meta">EdTech Startup (Ella Study) – Co-Founder | COO & CFO</span>
+                <span class="domain-tag">Aug 2016 – Sep 2020 | Domain: EdTech & Marketing</span>
+                <ul>
+                    <li><strong>Strategic Alliance:</strong> Forged a partnership with <span class="hl-red">TikTok</span> to expand the TikTok Learning Fund to <span class="data-chip">200+</span> universities, reaching <span class="data-chip">3 billion</span> views within 6 months.</li>
+                    <li><strong>Venture Leadership:</strong> Managed a team of <span class="data-chip">25+</span>, navigating 5 business model pivots to reach <span class="data-chip">$500k</span> in annual revenue.</li>
+                    <li><strong>Awards:</strong> Recognized as <span class="hl-red">Top 5 Startup Viet</span> and Top 5 Vietnam Founder of the Year.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp8" class="tab-content">
+            <div class="card">
+                <span class="job-meta">Ministry of Education & Training – Senior Assistant to Directors</span>
+                <span class="domain-tag">Aug 2013 – Mar 2018 | Domain: Governmental Strategy & IT</span>
+                <ul>
+                    <li><strong>Strategic Fundraising:</strong> Secured <span class="data-chip">$5 million</span> in <span class="hl-red">World Bank funding</span> for the HEDMIS higher education information project.</li>
+                    <li><strong>National Strategy:</strong> Advised the General Director on national ICT application strategies and managed international cooperation.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="exp9" class="tab-content">
+            <div class="card">
+                <span class="job-meta">TOPICA Education Group – Share Holder & Project Manager</span>
+                <span class="domain-tag">Sep 2010 – Aug 2014 | Domain: EdTech & Banking Training</span>
+                <ul>
+                    <li><strong>Banking Pedagogy:</strong> Vice Director of the <span class="hl-red">Pro Banker Program</span>, training <span class="data-chip">250</span> future bankers for recruitment into Top 10 banks.</li>
+                    <li><strong>Venture Capital:</strong> Part of the team that successfully raised <span class="data-chip">$5 million</span> in <span class="hl-red">Series B funding</span>.</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function showTab(event, tabId, num) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            document.getElementById('tab-title').innerText = event.currentTarget.innerText;
+            document.getElementById('project-num').innerText = num;
+            document.querySelector('.main').scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
