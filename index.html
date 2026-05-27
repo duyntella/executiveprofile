@@ -299,6 +299,16 @@
       .brand small{font-size:.62rem}
       .brand{gap:10px}
       .mark{width:38px;height:38px}
+
+      /* Mobile performance fix:
+         Experience is a long, JS-rendered section. On mobile, keeping entire
+         sections at opacity:0 until IntersectionObserver fires can create a
+         blank-scroll effect. Show all sections immediately on mobile and keep
+         desktop reveal animation unchanged. */
+      .reveal{opacity:1!important;transform:none!important;transition:none!important}
+      .eyebrow,h1,.headline,.summary,.hero-actions,.hero-card{animation:none!important}
+      .metric:hover,.achievement:hover,.btn:hover{transform:none}
+      .bar span{width:var(--w)!important;transition:none!important}
     }
 
     /* ════════════════════════════════════════════
@@ -780,6 +790,7 @@
       });
       renderNav();
       renderCards();
+      if(isMobileView()) document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
       document.getElementById('mobilePanel').classList.remove('open');
     }
 
@@ -788,19 +799,44 @@
        Fix: higher threshold (0.18) + requestAnimationFrame
        so browser paints before toggling class
     ══════════════════════════════════════════ */
-    const revealObserver=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          requestAnimationFrame(()=>entry.target.classList.add('visible'));
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },{threshold:.18,rootMargin:'0px 0px -40px 0px'});
+    const isMobileView = () => window.matchMedia('(max-width: 680px)').matches;
 
-    document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+    let revealObserver = null;
+    function initReveal(){
+      const reveals = document.querySelectorAll('.reveal');
 
-    /* Animate competency bars when section enters viewport */
+      /* Mobile performance fix:
+         Show everything immediately on mobile. This avoids blank white space
+         in long, JS-rendered sections such as Experience when the browser
+         delays IntersectionObserver callbacks or painting. */
+      if(isMobileView()){
+        reveals.forEach(el=>el.classList.add('visible'));
+        return;
+      }
+
+      revealObserver = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            requestAnimationFrame(()=>entry.target.classList.add('visible'));
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },{threshold:.18,rootMargin:'0px 0px -40px 0px'});
+
+      reveals.forEach(el=>revealObserver.observe(el));
+    }
+
+    initReveal();
+
+    /* Animate competency bars when section enters viewport.
+       On mobile, render bars immediately to reduce scroll/paint workload. */
     function animateBars(){
+      const competencies = document.querySelectorAll('.competency');
+      if(isMobileView()){
+        competencies.forEach(el=>el.classList.add('bar-animate'));
+        return;
+      }
+
       const barObserver=new IntersectionObserver(entries=>{
         entries.forEach(entry=>{
           if(entry.isIntersecting){
@@ -809,7 +845,7 @@
           }
         });
       },{threshold:.3});
-      document.querySelectorAll('.competency').forEach(el=>{
+      competencies.forEach(el=>{
         el.classList.remove('bar-animate');
         barObserver.observe(el);
       });
